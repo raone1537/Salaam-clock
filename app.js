@@ -1,3 +1,27 @@
+// Initialize Pi SDK in sandbox mode
+Pi.init({ sandbox: true });
+
+// Authentication logic
+async function authenticate() {
+  const scopes = ['username', 'payments'];
+
+  try {
+    const auth = await Pi.authenticate(scopes, onIncompletePaymentFound);
+    console.log('Authenticated user:', auth.user);
+    document.getElementById('status').innerText = `Welcome, ${auth.user.username}!`;
+  } catch (err) {
+    console.error('Authentication error:', err);
+    document.getElementById('status').innerText = 'Authentication failed.';
+  }
+}
+
+// Handle incomplete payments (optional)
+function onIncompletePaymentFound(payment) {
+  console.log('Incomplete payment:', payment);
+}
+
+// Run authentication
+authenticate();
 /*{
   "name": "salaam-clock",
   "version": "1.0.0",
