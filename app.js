@@ -1,3 +1,15 @@
+
+import "@/styles/globals.css"; 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+export default function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Component {...pageProps} />
+      <SpeedInsights />
+    </>
+  );
+}
 // Initialize Pi SDK in sandbox mode
 Pi.init({ sandbox: true });
 
