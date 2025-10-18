@@ -1,4 +1,18 @@
-/*
+/*{
+  "name": "salaam-clock",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  }
+}
   Salaam Clock - simple prayer time app for Pi Browser.
   - Default cities: Makkah, Medina (country: Saudi Arabia)
   - Uses Aladhan API for timings.
