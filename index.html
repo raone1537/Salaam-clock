@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Salaam Clock</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://sdk.minepi.com/pi-sdk.js"></script>
+</head>
+<body>
+  <header>
+    <h1>🕋 Salaam Clock</h1>
+    <p id="subtitle">Prayer times for Makkah / Madina • Pi-enabled</p>
+  </header>
+
+  <main>
+    <div class="controls">
+      <label>Select city:
+        <select id="citySelect">
+          <option value="Makkah">Makkah</option>
+          <option value="Medina">Madina</option>
+        </select>
+      </label>
+      <button id="refreshBtn">Refresh</button>
+    </div>
+
+    <section id="info" class="card">
+      <div id="dateLocal"></div>
+      <div id="hijriDate"></div>
+      <div id="countdown"></div>
+    </section>
+
+    <section id="prayers" class="grid card"></section>
+
+    <div class="actions card">
+      <button id="donateBtn">Donate Pi</button>
+      <button id="loginBtn">Login with Pi</button>
+    </div>
+  </main>
+
+  <footer>
+    <small>Built for Pi Browser • Data from Aladhan API</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
