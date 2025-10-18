@@ -1,3 +1,49 @@
+export default function Home() {
+
+  const handleDonate = () => {
+    Pi.createPayment(
+      {
+        amount: 3.14, // amount in π
+        memo: "Support Salaam Clock",
+        metadata: { donation: true }
+      },
+      {
+        onReadyForServerApproval: function (paymentId) {
+          console.log("Payment ready for server approval:", paymentId);
+        },
+        onReadyForServerCompletion: function (paymentId, txid) {
+          console.log("Payment completed:", paymentId, txid);
+        },
+        onCancel: function (paymentId) {
+          console.log("Payment cancelled:", paymentId);
+        },
+        onError: function (error, payment) {
+          console.error("Payment error:", error);
+        }
+      }
+    );
+  };
+
+  return (
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <h1>Salaam Clock</h1>
+      <button
+        style={{
+          padding: '10px 20px',
+          backgroundColor: '#4B9EFC',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '8px',
+          fontSize: '16px'
+        }}
+        onClick={handleDonate}
+      >
+        💰 Donate 3.14π
+      </button>
+    </div>
+  );
+}
+
 <script src="https://sdk.minepi.com/pi-sdk.js"></script>
 <script>Pi.init({ version: "2.0" })</script>
 
