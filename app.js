@@ -1,3 +1,15 @@
+import React from "react";
+import PrayerTimes from "./components/PrayerTimes"; // 👈 Import the component
+
+function App() {
+  return (
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <PrayerTimes />  {/* 👈 Use the component here */}
+    </div>
+  );
+}
+
+export default App;
 import { useEffect, useState } from "react";
 
 export default function PrayerTimes() {
