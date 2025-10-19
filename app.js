@@ -1,4 +1,80 @@
+import { useEffect, useState } from "react";
 
+export default function App() {
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+  const [username, setUsername] = useState("Connecting...");
+
+  useEffect(() => {
+    // ✅ Initialize Pi SDK in sandbox mode
+    Pi.init({ sandbox: true });
+
+    const scopes = ["payments"];
+    function onIncompletePaymentFound(payment) {
+      console.log("Found incomplete payment:", payment);
+    }
+
+    // Authenticate user
+    Pi.authenticate(scopes, onIncompletePaymentFound)
+      .then((auth) => {
+        console.log(`Hi ${auth.user.username}!`);
+        setUsername(auth.user.username);
+      })
+      .catch((error) => {
+        console.error("Auth error:", error);
+        setUsername("Authentication failed");
+      });
+
+    // 🕒 Clock update interval
+    const interval = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  // Handle donation
+  const handleDonate = () => {
+    Pi.createPayment(
+      {
+        amount: 3.14,
+        memo: "Support Salaam Clock",
+        metadata: { donation: true },
+      },
+      {
+        onReadyForServerApproval: (paymentId) => {
+          console.log("Payment ready for server approval:", paymentId);
+        },
+        onReadyForServerCompletion: (paymentId, txid) => {
+          console.log("Payment completed:", paymentId, txid);
+        },
+        onCancel: (paymentId) => {
+          console.log("Payment cancelled:", paymentId);
+        },
+        onError: (error, payment) => {
+          console.error("Payment error:", error);
+        },
+      }
+    );
+  };
+
+  return (
+    <main className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+      <h1 className="text-3xl font-bold mb-2">Salaam Clock</h1>
+      <p className="text-lg mb-6">Hello, {username}</p>
+
+      {/* 🕒 Show live time */}
+      <div className="text-5xl font-mono mb-8">{time}</div>
+
+      <button
+        onClick={handleDonate}
+        className="px-6 py-3 bg-yellow-400 text-black rounded-xl font-semibold hover:bg-yellow-300 transition-all"
+      >
+        Donate 3.14 π
+      </button>
+    </main>
+  );
+}
 import "@/styles/globals.css"; 
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
